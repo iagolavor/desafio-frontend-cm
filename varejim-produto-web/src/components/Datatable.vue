@@ -1,13 +1,15 @@
 <template>
   <v-data-table
     :headers="headers"
+    :items="items"
     :search="search"
   >
     <template v-slot:top>
       <v-text-field
         v-model="search"
         class="mx-4"
-        :label="`Pesquise ${tipotabela}`"
+        :label="`Filtrar ${tipotabela}`"
+        append-icon="mdi-magnify"
       ></v-text-field>
     </template>
   </v-data-table>
@@ -27,6 +29,10 @@ export default {
     tipotabela:{
       type: String,
       default: ''
+    },
+    items:{
+      type: Array,
+      default: () => []
     }
   }
 }

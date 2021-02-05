@@ -5,7 +5,7 @@
       color="teal lighten-2"
       dark
     >
-      <div class="d-flex align-center appbar" style="max-width:1200px;">
+      <div class="d-flex align-center appbar pl-5" style="max-width:1200px;">
         <v-icon large>mdi-cash</v-icon>
         <span class="ml-3 text-h4 font-weight-light">O Varejim web</span>
       </div>

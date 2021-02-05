@@ -1,16 +1,16 @@
 <template>
   <v-container>
-    <v-row class="text-center">
+    <v-row>
       <v-col>
+        <div class="font-weight-light text-h4">Produtos</div>
         <v-sheet class="rounded-lg" color="white">
-          <div>Produtos</div>
-          <Datatable/>
+          <Datatable :headers="headers.product" :items="productItems" :tipotabela="'produtos'" />
         </v-sheet>
       </v-col>
       <v-col>
+        <div class="font-weight-light text-h4">Seções</div>
         <v-sheet class="rounded-lg" color="white">
-          <div>Seções</div>
-          <Datatable/>
+          <Datatable :headers="headers.section" :items="sections" :tipotabela="'seções'" />
         </v-sheet>
       </v-col>
     </v-row>
@@ -20,11 +20,47 @@
 <script>
 // @ is an alias to /src
 import Datatable from '@/components/Datatable.vue'
+import { getProducts, getSections } from '@/services.js'
 
 export default {
   name: 'Home',
   components: {
     Datatable
+  },
+  data: () => ({
+    productItems:[],
+    sections:[],
+    headers:{
+      product:[
+          {text: 'id'       , value: 'id'},
+          {text: 'id seção' , value:'secao_id'},
+          {text: 'Descrição', value:'descricao'}
+      ],
+      section:[
+        {text: 'id'       , value:'id'},
+        {text: 'Descrição', value:'descricao'}
+      ]
+    }
+  }),
+  methods: {
+    loadProducts: function(){
+      getProducts().then(res => {
+        this.productItems = res.data.items;
+      })
+    },
+    loadSections: function(){
+      getSections().then(res => {
+        this.sections = res.data.items;
+      })
+    }
+  },
+  mounted(){
+    this.loadProducts(); 
+    this.loadSections(); 
   }
 }
 </script>
+
+<style scoped>
+
+</style>
