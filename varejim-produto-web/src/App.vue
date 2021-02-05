@@ -12,7 +12,7 @@
     </v-app-bar>
 
     <v-main class="main">
-      <v-container>
+      <v-container class="wrapper">
         <router-view></router-view>
       </v-container>
     </v-main>
@@ -40,8 +40,12 @@ export default {
   margin-left: auto;
   margin-right: auto;
 }
-
 .main{
-  background-color: lightgrey;
+  background-color: #eeeeee;
+}
+.wrapper{
+  width: 1200px;
+  margin-right: auto;
+  margin-left: auto;
 }
 </style>

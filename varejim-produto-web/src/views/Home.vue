@@ -1,17 +1,30 @@
 <template>
-  <div class="home">
-    <HelloWorld/>
-  </div>
+  <v-container>
+    <v-row class="text-center">
+      <v-col>
+        <v-sheet class="rounded-lg" color="white">
+          <div>Produtos</div>
+          <Datatable/>
+        </v-sheet>
+      </v-col>
+      <v-col>
+        <v-sheet class="rounded-lg" color="white">
+          <div>Seções</div>
+          <Datatable/>
+        </v-sheet>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import Datatable from '@/components/Datatable.vue'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    Datatable
   }
 }
 </script>
