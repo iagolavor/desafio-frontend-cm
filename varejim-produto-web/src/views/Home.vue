@@ -34,11 +34,13 @@ export default {
       product:[
           {text: 'id'       , value: 'id'},
           {text: 'id seção' , value:'secao_id'},
-          {text: 'Descrição', value:'descricao'}
+          {text: 'Descrição', value:'descricao'},
+          {text: 'Excluir'  , value:'delete'}
       ],
       section:[
         {text: 'id'       , value:'id'},
-        {text: 'Descrição', value:'descricao'}
+        {text: 'Descrição', value:'descricao'},
+        {text: 'Excluir'  , value:'delete'}
       ]
     }
   }),

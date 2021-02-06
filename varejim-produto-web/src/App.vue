@@ -8,6 +8,10 @@
       <div class="d-flex align-center appbar pl-5" style="max-width:1200px;">
         <v-icon large>mdi-cash</v-icon>
         <span class="ml-3 text-h4 font-weight-light">O Varejim web</span>
+        <v-spacer></v-spacer>
+        <v-btn text to="/">Página inicial</v-btn>
+        <v-divider vertical />
+        <v-btn text to="/about">Cadastrar</v-btn>
       </div>
     </v-app-bar>
 
