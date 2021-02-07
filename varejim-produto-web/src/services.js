@@ -25,9 +25,7 @@ export function updateProduct(id, descricao, secao_id){
 }
 
 export function deleteProduct(id){
-  return http.delete('/produtos', {
-    params: {id: id}
-  })
+  return http.delete(`/produtos/${id}`)
 }
 
 export function getSections(){

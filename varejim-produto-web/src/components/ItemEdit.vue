@@ -27,7 +27,7 @@
       </v-col>
     </v-row>
     <v-row class="justify-space-between mx-3 mb-2">
-      <v-dialog v-model="dialog" max-width="300">
+      <v-dialog :retain-focus="false" v-model="dialog" max-width="300">
         <template v-slot:activator="{ on , attrs}">
           <v-btn color="error" v-on="on" v-bind="attrs">
             Excluir
