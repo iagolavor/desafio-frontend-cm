@@ -33,7 +33,7 @@ export default {
     headers:{
       product:[
           {text: 'id'       , value: 'id'},
-          {text: 'id seção' , value:'id_secao'},
+          {text: 'id seção' , value:'secao_id'},
           {text: 'Descrição', value:'descricao'},
           {text: 'Editar'   , value: 'edit', sortable: false},
           {text: 'Excluir'  , value:'delete', sortable:false}
