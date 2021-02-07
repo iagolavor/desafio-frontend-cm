@@ -1,7 +1,7 @@
 <template>
   <v-container>
-    <span v-show="id_secao" class="ml-3">Editar produto</span>
-    <span v-show="!id_secao">Editar seção</span>
+    <span v-show="id_secao" class="ml-3 text-h6 font-weight-light">Editar produto</span>
+    <span v-show="!id_secao" class="ml-3 text-h6 font-weight-light">Editar seção</span>
     <v-row>
       <v-col>
         <v-text-field class="mx-3"

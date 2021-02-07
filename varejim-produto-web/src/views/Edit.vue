@@ -10,7 +10,7 @@
       <v-col>
         <div class="font-weight-light text-h4 pb-3">Cadastrar item</div>
         <v-sheet class="rounded-lg" color="white">
-
+          <ItemRegister/>
         </v-sheet>
       </v-col>
     </v-row>
@@ -19,12 +19,14 @@
 
 <script>
 import ItemEdit from '@/components/ItemEdit.vue'
+import ItemRegister from '@/components/ItemRegister.vue'
 import { updateProduct } from '@/services.js'
 
 export default {
   name: 'Edit',
   components:{
-    ItemEdit
+    ItemEdit,
+    ItemRegister
   },
   data: () => ({}),
   props:{

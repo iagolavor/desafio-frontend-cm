@@ -9,9 +9,8 @@ export function getProducts(){
   return http.get('/produtos')
 }
 
-export function insertProduct(id, descricao, secao_id){
+export function insertProduct(descricao, secao_id){
   return http.post('/produtos', {
-    id:id,
     descricao: descricao,
     secao_id: secao_id
   })
