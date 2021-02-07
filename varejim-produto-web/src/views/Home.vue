@@ -33,14 +33,16 @@ export default {
     headers:{
       product:[
           {text: 'id'       , value: 'id'},
-          {text: 'id seção' , value:'secao_id'},
+          {text: 'id seção' , value:'id_secao'},
           {text: 'Descrição', value:'descricao'},
-          {text: 'Excluir'  , value:'delete'}
+          {text: 'Editar'   , value: 'edit', sortable: false},
+          {text: 'Excluir'  , value:'delete', sortable:false}
       ],
       section:[
         {text: 'id'       , value:'id'},
         {text: 'Descrição', value:'descricao'},
-        {text: 'Excluir'  , value:'delete'}
+        {text: 'Editar'   , value:'edit', sortable:false},
+        {text: 'Excluir'  , value:'delete', sortable:false}
       ]
     }
   }),

@@ -17,9 +17,11 @@ export function insertProduct(id, descricao, secao_id){
   })
 }
 
-export function updateProduct(id){
-  return http.put('/produtos', {
-    params: {id:id}
+export function updateProduct(id, descricao, secao_id){
+  return http.put(`/produtos/${id}`, {
+    id: id,
+    descricao: descricao,
+    secao_id: secao_id
   })
 }
 

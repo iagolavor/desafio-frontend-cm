@@ -16,6 +16,15 @@
       <v-icon @click="deleteItem(item)"
       >mdi-delete-outline</v-icon>
     </template>
+    <template v-slot:item.edit="{item}">
+      <v-btn icon :to="{path: '/edit',
+        query: {id:`${item.id}`,
+        descricao:`${item.descricao}`,
+        id_secao:`${item.secao_id}`}}">
+        <v-icon
+        >mdi-pencil</v-icon>
+      </v-btn>
+    </template>
   </v-data-table>
 </template>
 

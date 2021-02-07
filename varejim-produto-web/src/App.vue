@@ -11,7 +11,7 @@
         <v-spacer></v-spacer>
         <v-btn text to="/">Página inicial</v-btn>
         <v-divider vertical />
-        <v-btn text to="/about">Cadastrar</v-btn>
+        <v-btn text to="/edit">Configurações</v-btn>
       </div>
     </v-app-bar>
 
