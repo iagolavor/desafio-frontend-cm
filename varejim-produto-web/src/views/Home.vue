@@ -40,9 +40,7 @@ export default {
       ],
       section:[
         {text: 'id'       , value:'id'},
-        {text: 'Descrição', value:'descricao'},
-        {text: 'Editar'   , value:'edit', sortable:false},
-        {text: 'Excluir'  , value:'delete', sortable:false}
+        {text: 'Descrição', value:'descricao'}
       ]
     }
   }),

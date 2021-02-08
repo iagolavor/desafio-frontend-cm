@@ -1,7 +1,6 @@
 <template>
   <v-container>
-    <span v-show="id_secao" class="ml-3 text-h6 font-weight-light">Editar produto</span>
-    <span v-show="!id_secao" class="ml-3 text-h6 font-weight-light">Editar seção</span>
+    <span class="ml-3 text-h6 font-weight-light">Editar produto</span>
     <v-row>
       <v-col>
         <v-text-field class="mx-3"
@@ -11,7 +10,7 @@
           hide-details
         ></v-text-field>
       </v-col>
-      <v-col v-show="id_secao">
+      <v-col>
         <v-text-field class="mx-3"
           label="id_seção"
           v-model="id_secao"
@@ -38,34 +37,69 @@
           <v-card-title>Excluir item com id {{id}}?</v-card-title>
           <v-card-actions class="justify-space-between">
             <v-btn @click="dialog = false" text>Não</v-btn>
-            <v-btn text>Sim</v-btn>
+            <v-btn @click="deleteItem(id)" text>Sim</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <v-btn color="primary">
+      <v-btn color="primary" @click="editItem(id)">
         Salvar
         <v-icon right>mdi-content-save</v-icon>
       </v-btn>
     </v-row>
+    <v-snackbar v-model="snackbar" :timeoutr="timeout" :color="snackbarcolor">
+      {{snackbartext}}
+    </v-snackbar>
   </v-container>
 </template>
 
 <script>
-import { deleteProduct } from '@/services.js'
+import { deleteProduct, updateProduct } from '@/services.js'
 
 export default {
   name: 'ItemEdit',
   data: () => ({
-    dialog: false
+    snackbar: false,
+    timeout: 1000,
+    snackbarcolor: '',
+    snackbartext: '',
+    dialog: false,
   }),
   methods:{
     deleteItem: function(id){
+      this.dialog = false;
       deleteProduct(id).then(res => {
+        this.snackbartext = 'Produto excluído com sucesso';
+        this.snackbarcolor = 'primary';
+        this.snackbar = true;
         console.log(res);
         this.id = 0;
         this.descricao = '';
         this.id_secao = 0;
+      }).catch(err => {
+        this.snackbartext = 'Erro na exclusão do item';
+        this.snackbarcolor = 'error';
+        this.snackbar = true;
+        console.log(err);
       })
+    },
+    editItem: function(id){
+      if(this.descricao > 0 && this.id_secao){
+          updateProduct(id, this.descricao, this.id_secao).then(res => {
+            console.log(res);
+            this.snackbartext = 'Produto alterado com sucesso';
+            this.snackbarcolor = 'primary';
+            this.snackbar = true;
+          }).catch(err => {
+            this.snackbartext = 'Erro na exclusão do item';
+            this.snackbarcolor = 'error';
+            this.snackbar = true;
+            console.log(err);
+          })
+      }else{
+        this.snackbartext = 'Preencha os campos de edição';
+        this.snackbarcolor = 'error';
+        this.snackbar = true;
+      }
     }
   },
   props: {

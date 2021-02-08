@@ -49,7 +49,8 @@ export default {
   data: () => ({
     search: '',
     dialog: false,
-    selectedItem: null
+    selectedItem: null,
+    computedItems: null
   }),
   props:{
     headers:{
