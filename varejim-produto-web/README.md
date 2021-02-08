@@ -31,3 +31,4 @@ npm run dev | npm run serve
 ## Desenvolvimento bônus
 
 1. O back-end nas rotas delete e put estava com um erro. O express enviava no res.send() um número inteiro, que era interpretado como um status HTTP e isso causava a função a entrar no catch e enviar erro código 500. Apenas dei um JSON.stringify() na resposta do serviço e está funcionando normalmente(felizmente, o AXIOS já transforma todo data em JSON então nada mudou nos serviços que já tinha feito).
+2. Instalação do pacote [wind-node-env](https://github.com/laggingreflex/win-node-env) para conseguir rodar o back-end no Windows.
