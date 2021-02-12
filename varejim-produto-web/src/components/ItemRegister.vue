@@ -2,15 +2,20 @@
   <v-container>
     <span class="text-h6 font-weight-light">Novo produto</span>
     <v-row class="align-baseline">
+      <v-select
+        hide-details
+        class="mx-3" label="id de seção do produto"
+        v-model="product.id_secao"
+        :items="items"
+        :menu-props="{ bottom: true, offsetY: true}"
+      ></v-select>
       <v-text-field class="mx-3"
         label="Descrição do produto"
         v-model="product.descricao"
       ></v-text-field>
-      <v-text-field class="mx-3"
-        label="id da seção do produto"
-        v-model="product.id_secao"
-      ></v-text-field>
-      <v-btn color="primary" class="mr-3" @click="saveProduct">
+    </v-row>
+    <v-row class="mx-1 mb-2">
+      <v-btn color="primary" class="px-3" @click="saveProduct">
         Salvar
         <v-icon right>mdi-content-save</v-icon>
       </v-btn>
@@ -22,7 +27,7 @@
 </template>
 
 <script>
-import { insertProduct } from '@/services.js'
+import { insertProduct, getSectionIds } from '@/services.js'
 
 export default {
   name: 'ItemRegister',
@@ -31,6 +36,7 @@ export default {
     snackbar: false,
     snackbartext: '',
     snackbarcolor: '',
+    items: [],
     timeout: 1000,
     product:{
       id: '',
@@ -42,6 +48,9 @@ export default {
       id_secao: ''
     }
   }),
+  mounted(){
+    this.loadIdSections();
+  },
   methods: {
     saveProduct: function(){
       if(this.product.descricao.length>0 && parseInt(this.product.id_secao)){
@@ -60,6 +69,13 @@ export default {
         this.snackbarcolor = "error";
         this.snackbartext = "Preencha os campos descrição e id da seção.";
         this.snackbar = true;
+      }
+    },
+    loadIdSections: async function(){
+      let res = await getSectionIds();
+      //res != 0 (success)
+      if(res){
+        this.items = res;
       }
     }
   }
