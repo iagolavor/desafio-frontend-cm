@@ -83,7 +83,7 @@ export default {
       })
     },
     editItem: function(id){
-      if(this.descricao > 0 && this.id_secao){
+      if(this.descricao.length > 0 && this.id_secao){
           updateProduct(id, this.descricao, this.id_secao).then(res => {
             console.log(res);
             this.snackbartext = 'Produto alterado com sucesso';

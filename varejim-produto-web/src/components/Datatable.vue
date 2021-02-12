@@ -3,6 +3,8 @@
     :headers="headers"
     :items="items"
     :search="search"
+    :options.sync="options"
+    :loading="datatableDefaults.loading"
   >
     <template v-slot:top>
       <v-text-field
@@ -42,7 +44,7 @@
 </template>
 
 <script>
-import { deleteProduct, getProducts } from '@/services.js'
+import { deleteProduct, getProducts, getSections } from '@/services.js'
 
 export default {
   name: 'Datatable',
@@ -50,8 +52,29 @@ export default {
     search: '',
     dialog: false,
     selectedItem: null,
-    computedItems: null
+    options: {},
+    datatableDefaults:{
+      page:0,
+      totalProducts:0,
+      items: [],
+      loading: false
+    },
+    items: []
   }),
+  mounted(){
+    if(this.tipotabela === 'produtos'){
+      this.loadDefaultProducts();
+    }else if(this.tipotabela === 'secoes'){
+      this.loadDefaultSections();
+    }
+  },
+  watch:{
+    options:{
+      handler(){
+        
+      }
+    }
+  },
   props:{
     headers:{
       type: Array,
@@ -60,33 +83,36 @@ export default {
     tipotabela:{
       type: String,
       default: ''
-    },
-    items:{
-      type: Array,
-      default: () => []
     }
   },
   methods:{
+    loadPaginatedProducts: async function(){
+      let res = await getProducts(this.options);
+      console.log(res);
+    },
     openDialog: function(item){
       console.log(item);
       this.selectedItem = item;
       this.dialog = true;
     },
-    deleteItem: function(item){
-      deleteProduct(item.id).then(res => {
-        console.log(res);
-        this.loadProducts();
+    deleteItem: async function(item){
+      let res = await deleteProduct(item.id);
+      if(res.status === 200){
+        await this.loadDefaultProducts();
         this.dialog = false;
-      }).catch(err => {
-        console.log(err);
-      })
+      }
     },
-    loadProducts: function(){
-      getProducts().then(res => {
-        this.items = res.data.items;
-      }).catch(err => {
-        console.log(err);
-      })
+    loadDefaultProducts:async function(){
+      this.datatableDefaults.loading = true;
+      let res = await getProducts();
+      this.items = res.data.items;
+      this.totalProducts = res.data.total;
+
+      this.datatableDefaults.loading = false;
+    },
+    loadDefaultSections:async function(){
+      let res = await getSections();
+      this.items = res.data.items;
     }
   }
 }

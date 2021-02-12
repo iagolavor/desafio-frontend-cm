@@ -5,29 +5,46 @@ const http = axios.create({
   timeout: 1000
 })
 
-export function getProducts(){
-  return http.get('/produtos')
+export async function getProducts(query){
+  let res = http.get('/produtos', {params: query});
+  return res;
 }
 
-export function insertProduct(descricao, secao_id){
-  return http.post('/produtos', {
+export const insertProduct = async(descricao, secao_id) => {
+  let res = http.post('/produtos', {
     descricao: descricao,
     secao_id: secao_id
-  })
+  });
+  return res;
 }
 
-export function updateProduct(id, descricao, secao_id){
-  return http.put(`/produtos/${id}`, {
+export const updateProduct = async(id, descricao, secao_id) => {
+  let res = http.put(`/produtos/${id}`, {
     id: id,
     descricao: descricao,
-    secao_id: secao_id
-  })
+    secao_id: secao_id});
+  return res;
 }
 
-export function deleteProduct(id){
-  return http.delete(`/produtos/${id}`)
+export const deleteProduct = async(id) => {
+  let res = http.delete(`/produtos/${id}`);
+  return res;
 }
 
-export function getSections(){
-  return http.get('/secoes')
+export const getSections = async(query) => {
+  let res = http.get('/secoes', {params: query});
+  return res;
+}
+
+export async function getSectionIds(){
+  let res = await http.get('/secoes');
+  if(res.status === 200){    
+      let arr = []
+      for(let x of res.data.items){
+        arr.push(x.id);
+      }
+      return arr;
+  }else{
+    return 0;
+  }
 }
