@@ -2,7 +2,7 @@ const axios = require('axios').default;
 
 const http = axios.create({
   baseURL: 'http://localhost:3000',
-  timeout: 1000
+  timeout: 2000
 })
 
 export async function getProducts(query){

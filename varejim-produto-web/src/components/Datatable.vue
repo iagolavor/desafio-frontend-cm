@@ -5,6 +5,7 @@
     :search="search"
     :options.sync="options"
     :loading="datatableDefaults.loading"
+    :server-items-length="datatableDefaults.totalItems"
   >
     <template v-slot:top>
       <v-text-field
@@ -55,8 +56,7 @@ export default {
     options: {},
     datatableDefaults:{
       page:0,
-      totalProducts:0,
-      items: [],
+      totalItems:0,
       loading: false
     },
     items: []
@@ -71,7 +71,7 @@ export default {
   watch:{
     options:{
       handler(){
-        
+        this.loadPaginatedItems(this.tipotabela);
       }
     }
   },
@@ -86,9 +86,20 @@ export default {
     }
   },
   methods:{
-    loadPaginatedProducts: async function(){
-      let res = await getProducts(this.options);
-      console.log(res);
+    loadPaginatedItems: async function(tipotabela){
+      this.loading = true;
+      let query = {
+        start: (this.options.page-1)*this.options.itemsPerPage,
+        limit: this.options.itemsPerPage
+      };
+      console.log(query)
+      if(tipotabela === 'produtos'){
+        let res = await getProducts(query);
+        this.items = res.data.items;
+        this.loading = false;
+      }else if(tipotabela === 'secoes'){
+        console.log(this.options);
+      }
     },
     openDialog: function(item){
       console.log(item);
@@ -106,13 +117,15 @@ export default {
       this.datatableDefaults.loading = true;
       let res = await getProducts();
       this.items = res.data.items;
-      this.totalProducts = res.data.total;
-
+      this.datatableDefaults.totalItems = res.data.total;
       this.datatableDefaults.loading = false;
     },
     loadDefaultSections:async function(){
+      this.datatableDefaults.loading = true;
       let res = await getSections();
       this.items = res.data.items;
+      this.datatableDefaults.totalItems = res.data.total;
+      this.datatableDefaults.loading = false;
     }
   }
 }
