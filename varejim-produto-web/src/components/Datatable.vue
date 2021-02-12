@@ -96,7 +96,7 @@ export default {
         limit: this.options.itemsPerPage,
       };
       if(this.search.length>0){
-        isNaN(this.search) ? query = { ...query, descricao: this.search } : query = { ...query, id: parseInt(this.search)}
+        isNaN(this.search) ? query = { ...query, descricao: this.search } : query = { ...query, id: parseInt(this.search)};
       }
       if(tipotabela === 'produtos'){
         let res = await getProducts(query);
