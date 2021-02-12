@@ -82,7 +82,8 @@ export default {
     },
     id:{
       handler(){
-        this.findProduct(this.id);
+        if(!isNaN(this.id))
+          this.findProduct(this.id);
       },
       deep: true,
       immediate: true
@@ -148,7 +149,7 @@ export default {
       }
     },
     checkEmptyFields: function(){
-      if(this.idModel>0 && this.idSecaoModel>0 && this.descricaoModel.length>0){
+      if(this.idModel && this.idSecaoModel && this.descricaoModel.length>0){
         return true;
       }else{
         return false;
