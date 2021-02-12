@@ -91,13 +91,7 @@ export default {
   methods:{
     loadPaginatedItems: async function(tipotabela){
       this.loading = true;
-      let query = {
-        start: (this.options.page-1)*this.options.itemsPerPage,
-        limit: this.options.itemsPerPage,
-      };
-      if(this.search.length>0){
-        isNaN(this.search) ? query = { ...query, descricao: this.search } : query = { ...query, id: parseInt(this.search)};
-      }
+      let query = this.queryBuilder(tipotabela);
       if(tipotabela === 'produtos'){
         let res = await getProducts(query);
         this.items = res.data.items;
@@ -133,6 +127,22 @@ export default {
       this.items = res.data.items;
       this.datatableDefaults.totalItems = res.data.total;
       this.datatableDefaults.loading = false;
+    },
+    queryBuilder: function(tipotabela){
+      let query = {
+        start: (this.options.page-1)*this.options.itemsPerPage,
+        limit: this.options.itemsPerPage,
+      };
+      if( (tipotabela === 'produtos') && this.search.length>0){
+        if(this.search.length === 3){
+          isNaN(this.search) ? query = { ...query, descricao: this.search } : query = { ...query, secao_id: parseInt(this.search)};
+        }else{
+          isNaN(this.search) ? query = { ...query, descricao: this.search } : query = { ...query, id: parseInt(this.search)};
+        }
+      }else if( (tipotabela === 'secoes') && this.search.length>0){
+        isNaN(this.search) ? query = { ...query, descricao: this.search } : query = { ...query, id: parseInt(this.search)};
+      }
+      return query;
     }
   }
 }
