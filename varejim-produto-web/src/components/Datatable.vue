@@ -11,7 +11,7 @@
       <v-text-field
         v-model="search"
         class="mx-4"
-        :label="`Filtrar ${tipotabela}`"
+        :label="`Filtrar`"
         append-icon="mdi-magnify"
       ></v-text-field>
     </template>
