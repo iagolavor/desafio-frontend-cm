@@ -27,10 +27,6 @@ export default {
     Datatable
   },
   data: () => ({
-    productItems:[],
-    sections:[],
-    query: {},
-    totalItems: 0,
     headers:{
       product:[
           {text: 'id'       , value: 'id'},

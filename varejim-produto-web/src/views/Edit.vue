@@ -4,7 +4,7 @@
       <v-col>
         <div class="font-weight-light text-h4 pb-3">Editar items</div>
         <v-sheet class="rounded-lg" color="white">
-          <ItemEdit :id="parseInt(id)" :descricao="descricao" :id_secao="parseInt(id_secao)" />
+          <ItemEdit :id="parseInt(id)"/>
         </v-sheet>
       </v-col>
       <v-col>
@@ -31,14 +31,6 @@ export default {
   data: () => ({}),
   props:{
     id:{
-      type: String,
-      default: ''
-    },
-    descricao: {
-      type: String,
-      default: ''
-    },
-    id_secao:{
       type: String,
       default: ''
     }

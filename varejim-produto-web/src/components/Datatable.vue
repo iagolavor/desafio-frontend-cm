@@ -34,9 +34,7 @@
     </template>
     <template v-slot:item.edit="{item}">
       <v-btn icon :to="{path: '/edit',
-        query: {id:`${item.id}`,
-        descricao:`${item.descricao}`,
-        id_secao:`${item.secao_id}`}}">
+        query: {id:`${item.id}`}}">
         <v-icon
         >mdi-pencil</v-icon>
       </v-btn>
@@ -109,7 +107,8 @@ export default {
     deleteItem: async function(item){
       let res = await deleteProduct(item.id);
       if(res.status === 200){
-        await this.loadPaginatedItems();
+        await this.loadDefaultProducts();
+        await this.loadPaginatedItems(this.tipotabela);
         this.dialog = false;
       }
     },

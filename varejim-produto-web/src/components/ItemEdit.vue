@@ -68,7 +68,7 @@ export default {
     idSecaoModel: null,
     descricaoModel: null,
     ids: [],
-    sectionIds: []
+    sectionIds: [],
   }),
   mounted(){
     this.loadIdProducts();
@@ -86,7 +86,6 @@ export default {
       let res = await getProducts({id: id});
       this.idSecaoModel = res.data.items[0].secao_id;
       this.descricaoModel = res.data.items[0].descricao;
-      console.log(res);
     },
     loadIdProducts: async function(){
       let res = await getProductIds();
@@ -150,14 +149,6 @@ export default {
   },
   props: {
     id:{
-      type: Number,
-      default: 0
-    },
-    descricao:{
-      type: String,
-      default: ''
-    },
-    id_secao:{
       type: Number,
       default: 0
     }
