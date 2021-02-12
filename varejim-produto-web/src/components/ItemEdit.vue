@@ -79,11 +79,19 @@ export default {
       handler(){
         this.findProduct(this.idModel);
       }
+    },
+    id:{
+      handler(){
+        this.findProduct(this.id);
+      },
+      deep: true,
+      immediate: true
     }
   },
   methods:{
     findProduct: async function(id){
       let res = await getProducts({id: id});
+      this.idModel = res.data.items[0].id;
       this.idSecaoModel = res.data.items[0].secao_id;
       this.descricaoModel = res.data.items[0].descricao;
     },
