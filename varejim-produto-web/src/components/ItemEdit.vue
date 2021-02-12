@@ -3,24 +3,25 @@
     <span class="ml-3 text-h6 font-weight-light">Editar produto</span>
     <v-row>
       <v-col>
-        <v-text-field class="mx-3"
-          v-model="id"
-          label="id"
-          disabled
+        <v-select class="mx-3"
           hide-details
-        ></v-text-field>
+          label="id"
+          v-model="idModel"
+          :items="ids"
+        ></v-select>
       </v-col>
       <v-col>
-        <v-text-field class="mx-3"
-          label="id_seção"
-          v-model="id_secao"
+        <v-select class="mx-3"
+          label="id seção"
+          v-model="idSecaoModel"
           hide-details
-        ></v-text-field>
+          :items="sectionIds"
+        ></v-select>
       </v-col>
       <v-col>
         <v-text-field class="mx-3"
           label="Descrição"
-          v-model="descricao"
+          v-model="descricaoModel"
           hide-details
         ></v-text-field>
       </v-col>
@@ -53,7 +54,7 @@
 </template>
 
 <script>
-import { deleteProduct, updateProduct } from '@/services.js'
+import { deleteProduct, updateProduct, getProductIds, getSectionIds, getProducts } from '@/services.js'
 
 export default {
   name: 'ItemEdit',
@@ -63,42 +64,87 @@ export default {
     snackbarcolor: '',
     snackbartext: '',
     dialog: false,
+    idModel: null,
+    idSecaoModel: null,
+    descricaoModel: null,
+    ids: [],
+    sectionIds: []
   }),
+  mounted(){
+    this.loadIdProducts();
+    this.loadIdSections();
+  },
+  watch:{
+    idModel:{
+      handler(){
+        this.findProduct(this.idModel);
+      }
+    }
+  },
   methods:{
-    deleteItem: function(id){
-      this.dialog = false;
-      deleteProduct(id).then(res => {
-        this.snackbartext = 'Produto excluído com sucesso';
-        this.snackbarcolor = 'primary';
-        this.snackbar = true;
-        console.log(res);
-        this.id = 0;
-        this.descricao = '';
-        this.id_secao = 0;
-      }).catch(err => {
-        this.snackbartext = 'Erro na exclusão do item';
+    findProduct: async function(id){
+      let res = await getProducts({id: id});
+      this.idSecaoModel = res.data.items[0].secao_id;
+      this.descricaoModel = res.data.items[0].descricao;
+      console.log(res);
+    },
+    loadIdProducts: async function(){
+      let res = await getProductIds();
+      if(res){
+        this.ids = res;
+      }
+    },
+    loadIdSections: async function(){
+      let res = await getSectionIds();
+      //res != 0 (success)
+      if(res){
+        this.sectionIds = res;
+      }
+    },
+    deleteItem: async function(id){
+      if(this.checkEmptyFields()){
+        let res = await deleteProduct(id);
+        if(res.status === 200){
+          this.snackbartext = 'Produto excluído com sucesso';
+          this.snackbarcolor = 'primary';
+          this.snackbar = true;
+          this.idModel = null;
+          this.descricaoModel = '';
+          this.idSecaoModel = null;
+        }else{
+          this.snackbartext = 'Erro na exclusão do item';
+          this.snackbarcolor = 'error';
+          this.snackbar = true;
+        }
+      }else{
+        this.snackbartext = 'Preencha os campos de exclusão';
         this.snackbarcolor = 'error';
         this.snackbar = true;
-        console.log(err);
-      })
+      }
     },
-    editItem: function(id){
-      if(this.descricao.length > 0 && this.id_secao){
-          updateProduct(id, this.descricao, this.id_secao).then(res => {
-            console.log(res);
-            this.snackbartext = 'Produto alterado com sucesso';
-            this.snackbarcolor = 'primary';
-            this.snackbar = true;
-          }).catch(err => {
-            this.snackbartext = 'Erro na exclusão do item';
-            this.snackbarcolor = 'error';
-            this.snackbar = true;
-            console.log(err);
-          })
+    editItem: async function(){
+      if(this.checkEmptyFields()){
+        let res = await updateProduct(this.idModel, this.descricaoModel, this.idSecaoModel);
+        if(res.status === 200){
+          this.snackbartext = 'Produto alterado com sucesso';
+          this.snackbarcolor = 'primary';
+          this.snackbar = true;
+        }else{
+          this.snackbartext = 'Erro na exclusão do item';
+          this.snackbarcolor = 'error';
+          this.snackbar = true;
+        }
       }else{
         this.snackbartext = 'Preencha os campos de edição';
         this.snackbarcolor = 'error';
         this.snackbar = true;
+      }
+    },
+    checkEmptyFields: function(){
+      if(this.idModel>0 && this.idSecaoModel>0 && this.descricaoModel.length>0){
+        return true;
+      }else{
+        return false;
       }
     }
   },

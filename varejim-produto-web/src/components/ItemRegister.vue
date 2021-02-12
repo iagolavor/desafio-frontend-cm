@@ -1,20 +1,25 @@
 <template>
   <v-container>
-    <span class="text-h6 font-weight-light">Novo produto</span>
+    <span class="ml-3 text-h6 font-weight-light">Novo produto</span>
     <v-row class="align-baseline">
-      <v-select
-        hide-details
-        class="mx-3" label="id de seção do produto"
-        v-model="product.id_secao"
-        :items="items"
-        :menu-props="{ bottom: true, offsetY: true}"
-      ></v-select>
-      <v-text-field class="mx-3"
-        label="Descrição do produto"
-        v-model="product.descricao"
-      ></v-text-field>
+      <v-col>
+        <v-select
+          hide-details
+          class="mx-3" label="id de seção do produto"
+          v-model="product.id_secao"
+          :items="items"
+          :menu-props="{ bottom: true, offsetY: true}"
+        ></v-select>
+      </v-col>
+      <v-col>
+        <v-text-field class="mx-3"
+          hide-details
+          label="Descrição do produto"
+          v-model="product.descricao"
+        ></v-text-field>
+      </v-col>
     </v-row>
-    <v-row class="mx-1 mb-2">
+    <v-row class="mx-3 mb-2">
       <v-btn color="primary" class="px-3" @click="saveProduct">
         Salvar
         <v-icon right>mdi-content-save</v-icon>
@@ -39,11 +44,6 @@ export default {
     items: [],
     timeout: 1000,
     product:{
-      id: '',
-      descricao: '',
-      id_secao: ''
-    },
-    section:{
       descricao: '',
       id_secao: ''
     }

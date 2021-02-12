@@ -97,7 +97,9 @@ export default {
         this.items = res.data.items;
         this.loading = false;
       }else if(tipotabela === 'secoes'){
-        console.log(this.options);
+        let res = await getSections(query);
+        this.items = res.data.items;
+        this.loading = false;
       }
     },
     openDialog: function(item){
@@ -107,7 +109,7 @@ export default {
     deleteItem: async function(item){
       let res = await deleteProduct(item.id);
       if(res.status === 200){
-        await this.loadDefaultProducts();
+        await this.loadPaginatedItems();
         this.dialog = false;
       }
     },

@@ -35,8 +35,7 @@ export const getSections = async(query) => {
   let res = http.get('/secoes', {params: query});
   return res;
 }
-
-export async function getSectionIds(){
+export const getSectionIds = async() => {
   let res = await http.get('/secoes');
   if(res.status === 200){    
       let arr = []
@@ -44,6 +43,18 @@ export async function getSectionIds(){
         arr.push(x.id);
       }
       return arr;
+  }else{
+    return 0;
+  }
+}
+
+export const getProductIds = async() => {
+  let res = await http.get('/produtos');
+  if(res.status === 200){
+    let arr = [];
+    for(let x of res.data.items)
+      arr.push(x.id);
+    return arr;
   }else{
     return 0;
   }
