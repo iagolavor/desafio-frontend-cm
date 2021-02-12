@@ -20,7 +20,6 @@
 <script>
 // @ is an alias to /src
 import Datatable from '@/components/Datatable.vue'
-import { getProducts, getSections, getSectionIds } from '@/services.js'
 
 export default {
   name: 'Home',
@@ -45,30 +44,7 @@ export default {
         {text: 'Descrição', value:'descricao'}
       ]
     }
-  }),
-  methods: {
-    loadProducts: async function(){
-      getProducts().then(res => {
-        this.query = res.data;
-        this.productItems = res.data.items;
-        this.totalItems = res.data.total;
-      })
-    },
-    loadSections: function(){
-      getSections().then(res => {
-        this.sections = res.data.items;
-      })
-    },
-    getTest: async function(){
-      let res = await getSectionIds();
-      console.log(res);
-    }
-  },
-  mounted(){
-    this.loadProducts(); 
-    this.loadSections(); 
-    this.getTest();
-  }
+  })
 }
 </script>
 

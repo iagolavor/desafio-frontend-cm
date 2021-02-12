@@ -92,7 +92,6 @@ export default {
         start: (this.options.page-1)*this.options.itemsPerPage,
         limit: this.options.itemsPerPage
       };
-      console.log(query)
       if(tipotabela === 'produtos'){
         let res = await getProducts(query);
         this.items = res.data.items;
@@ -102,7 +101,6 @@ export default {
       }
     },
     openDialog: function(item){
-      console.log(item);
       this.selectedItem = item;
       this.dialog = true;
     },
