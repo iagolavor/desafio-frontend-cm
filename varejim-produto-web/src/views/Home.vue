@@ -29,15 +29,15 @@ export default {
   data: () => ({
     headers:{
       product:[
-          {text: 'id'       , value: 'id'},
-          {text: 'id seção' , value:'secao_id'},
-          {text: 'Descrição', value:'descricao'},
+          {text: 'id'       , value: 'id', sortable: false},
+          {text: 'id seção' , value:'secao_id', sortable: false},
+          {text: 'Descrição', value:'descricao', sortable: false},
           {text: 'Editar'   , value: 'edit', sortable: false},
           {text: 'Excluir'  , value:'delete', sortable:false}
       ],
       section:[
-        {text: 'id'       , value:'id'},
-        {text: 'Descrição', value:'descricao'}
+        {text: 'id'       , value:'id', sortable: false},
+        {text: 'Descrição', value:'descricao', sortable: false}
       ]
     }
   })
