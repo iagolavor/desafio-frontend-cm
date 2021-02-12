@@ -71,6 +71,11 @@ export default {
       handler(){
         this.loadPaginatedItems(this.tipotabela);
       }
+    },
+    search:{
+      handler(){
+        this.loadPaginatedItems(this.tipotabela);
+      }
     }
   },
   props:{
@@ -88,8 +93,11 @@ export default {
       this.loading = true;
       let query = {
         start: (this.options.page-1)*this.options.itemsPerPage,
-        limit: this.options.itemsPerPage
+        limit: this.options.itemsPerPage,
       };
+      if(this.search.length>0){
+        isNaN(this.search) ? query = { ...query, descricao: this.search } : query = { ...query, id: parseInt(this.search)}
+      }
       if(tipotabela === 'produtos'){
         let res = await getProducts(query);
         this.items = res.data.items;
