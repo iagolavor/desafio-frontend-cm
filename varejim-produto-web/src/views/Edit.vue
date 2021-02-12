@@ -20,7 +20,6 @@
 <script>
 import ItemEdit from '@/components/ItemEdit.vue'
 import ItemRegister from '@/components/ItemRegister.vue'
-import { updateProduct } from '@/services.js'
 
 export default {
   name: 'Edit',
@@ -35,12 +34,5 @@ export default {
       default: ''
     }
   },
-  methods:{
-    updateItem: function(id){
-      updateProduct(id).then(res => {
-        console.log(res);
-      })
-    }
-  }
 }
 </script>
